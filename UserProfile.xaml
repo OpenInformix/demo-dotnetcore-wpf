@@ -1,0 +1,14 @@
+﻿<Window x:Class="ISL.UserProfile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ISL"
+        mc:Ignorable="d"
+        Title="UserProfile" Height="450" Width="800">
+    <Grid>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="47,17,0,0" x:Name="WelcomeHeading" Text="Welcome:" VerticalAlignment="Top" FontSize="17" FontStretch="ExtraCondensed"/>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="159,18,0,0" x:Name="TextBlockName"  VerticalAlignment="Top" FontSize="15" FontStretch="ExtraCondensed" Width="241" />
+        <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Left" Margin="678,16,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="25" Width="80" Click="Logout_Click"/>
+    </Grid>
+</Window>
