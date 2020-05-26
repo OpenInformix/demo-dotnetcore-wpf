@@ -10,14 +10,14 @@
 ## Objective:
 To create a simple WPF application (using dotnet core) to connect with Informix and to perform some tasks (like user account portal).
 User/Admin account portal, where Admin and Users can view, update, delete their information.
-            Two User System -**Admin User** and **Normal User**.
+            Two User System -**Admin** and **User**.
 
 ## Application Functionality:
-***1) Public User Registration Page (Registration Page)***- by default user will be "Normal User" (and from public registration page one cannot register as "Admin user")
+***1) Public User Registration Page (Registration Page)***- by default user will be "Normal User" (and from public registration page one cannot register as "Admin")
 
 **Login Page (MainWindow Page)** - Once registered one can login into the system (only valid users can).
 
-***a. If (Admin User)***
+***a. If (Admin)***
 
 ***AllUsersDetails Page will open*** - which will have all the user's details. From this page Admin can perform:
 

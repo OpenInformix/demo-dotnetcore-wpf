@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Reference Include="Informix.Net.Core">
-      <HintPath>..\..\..\csdk450\bin\netf40\Informix.Net.Core.dll</HintPath>
+      <HintPath>..\..\..\csdk450\bin\Informix.Net.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 

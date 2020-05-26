@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISL"
         mc:Ignorable="d"
-        Title="AddNewUserFromAdmin" Height="450" Width="800">
+        Title="AddNewUserFromAdmin" Height="600" Width="800">
     <Grid  Height="456" Width="525" Background="Bisque" Margin="2,0,2,0">
         <TextBlock Height="27" HorizontalAlignment="Left" Margin="10,5,0,0" Name="textBlockHeading" Text="Add New User:" VerticalAlignment="Top" Width="183"  FontSize="18" FontWeight="Bold" FontStretch="ExtraCondensed"/>
         <!--Button as a Link button using style-->

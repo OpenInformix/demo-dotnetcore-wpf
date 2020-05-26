@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ISL"
         mc:Ignorable="d"
-        Title="AllUserDetails" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="AllUserDetails" Height="600" Width="900" Loaded="Window_Loaded">
     <Grid>
         <DataGrid x:Name="dataGrid" Margin="25,91,25,77" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn  Binding="{Binding userid}" Header="User ID" Width="80"/>
+                <DataGridTextColumn  Binding="{Binding username}" Header="Username" Width="100"/>
                 <DataGridTextColumn  Binding="{Binding firstname}" Header="First Name" Width="100"/>
                 <DataGridTextColumn  Binding="{Binding lastname}" Header="Last Name" Width="100"/>
                 <DataGridTextColumn  Binding="{Binding email}" Header="Email" Width="150"/>
@@ -19,10 +20,10 @@
         </DataGrid>
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="25,13,0,0" x:Name="WelcomeHeading" Text="Welcome:" VerticalAlignment="Top" FontSize="17" FontStretch="ExtraCondensed" RenderTransformOrigin="0.527,0.662"/>
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="137,15,0,0" x:Name="TextBlockName"  VerticalAlignment="Top" FontSize="15" FontStretch="ExtraCondensed" Width="194" />
-        <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" Margin="340,376,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="80" Click="Save_Click"/>
-        <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Left" Margin="695,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="80" Click="Logout_Click"/>
-        <Button x:Name="Adduser" Content="Add User" HorizontalAlignment="Left" Margin="599,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="80" Click="AddUser_Click"/>
-        <Button x:Name="Refresh" HorizontalAlignment="Left" Margin="555,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="30" Click="Refresh_Click">
+        <Button x:Name="Save" Content="Save" HorizontalAlignment="Center" Margin="0,376,0,20" VerticalAlignment="Bottom" RenderTransformOrigin="0.145,0.748" Height="30" Width="80" Click="Save_Click"/>
+        <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Right" Margin="0,9,25,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="80" Click="Logout_Click"/>
+        <Button x:Name="Adduser" Content="Add User" HorizontalAlignment="Left" Margin="680,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="80" Click="AddUser_Click"/>
+        <Button x:Name="Refresh" HorizontalAlignment="Left" Margin="628,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.748" Height="30" Width="30" Click="Refresh_Click">
             <Image Source="refresh.jpg" Stretch="Uniform" Height="30" Width="25" RenderTransformOrigin="0.957,0.215"/>
         </Button>
     </Grid>

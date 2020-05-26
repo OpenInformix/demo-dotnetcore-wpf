@@ -50,7 +50,7 @@ namespace ISL
             con = new IfxConnection(cs);
             con.Open();
 
-            adpt = new IfxDataAdapter("select userid, firstname, lastname, email, address, usertype from user", con);
+            adpt = new IfxDataAdapter("select userid, username, firstname, lastname, email, address, usertype from user", con);
             dataSet = new DataSet();
             adpt.Fill(dataSet, "user_details");
             dataGrid.ItemsSource = dataSet.Tables[0].AsDataView();

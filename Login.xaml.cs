@@ -44,41 +44,52 @@ namespace ISL
             else  
             {  
                 string username = textBoxUserName.Text;  
-                string password = passwordBox1.Password;  
+                string password = passwordBox1.Password;
+                DataSet dataSet = new DataSet();
+                string selectSQL = "Select * from user where username='" + username + "'  and password='" + password + "'";
                 con = new IfxConnection(cs);  
-                con.Open();  
-                IfxCommand cmd = new IfxCommand("Select * from user where username='" + username + "'  and password='" + password + "'", con);  
-                cmd.CommandType = CommandType.Text;  
-                IfxDataAdapter adapter = new IfxDataAdapter();  
-                adapter.SelectCommand = cmd;  
-                DataSet dataSet = new DataSet();  
-                adapter.Fill(dataSet);  
-                if (dataSet.Tables[0].Rows.Count > 0)  
-                {  
-                    string name = dataSet.Tables[0].Rows[0]["FirstName"].ToString() + " " + dataSet.Tables[0].Rows[0]["LastName"].ToString();
-                    string userType = dataSet.Tables[0].Rows[0]["UserType"].ToString();
-
-                    if (userType == "Admin User")
+                con.Open();
+                try
+                {
+                    IfxCommand cmd = new IfxCommand(selectSQL, con);
+                    cmd.CommandType = CommandType.Text;
+                    IfxDataAdapter adapter = new IfxDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    adapter.Fill(dataSet);
+                    if (dataSet.Tables[0].Rows.Count > 0)
                     {
-                        AllUserDetails allUser = new AllUserDetails(name);
-                        allUser.Show();
+                        string name = dataSet.Tables[0].Rows[0]["FirstName"].ToString() + " " + dataSet.Tables[0].Rows[0]["LastName"].ToString();
+                        string userType = dataSet.Tables[0].Rows[0]["UserType"].ToString();
+
+                        if (userType == "Admin")
+                        {
+                            AllUserDetails allUser = new AllUserDetails(name);
+                            allUser.Show();
+                        }
+
+                        else
+                        {
+                            UserProfile userProfile = new UserProfile();
+                            userProfile.TextBlockName.Text = name;
+                            userProfile.Show();
+
+                        }
+
+                        Close();
                     }
-                    
                     else
                     {
-                        UserProfile userProfile = new UserProfile();
-                        userProfile.TextBlockName.Text = name;
-                        userProfile.Show();
-
+                        errormessage.Text = "Sorry! Please enter correct username/password.";
                     }
-
-                    Close();  
-                }  
-                else  
-                {  
-                    errormessage.Text = "Sorry! Please enter correct username/password.";  
-                }  
-                con.Close();
+                }
+                catch (Exception ex)
+                {
+                    errormessage.Text = "You need to register first before login.";
+                }
+                finally
+                {
+                    con.Close();
+                }
             }  
         }
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Informix.Net.Core;
+using ISL.DialogBoxes;
 
 namespace ISL
 {
@@ -23,6 +24,13 @@ namespace ISL
         IfxConnection con;
         //Connection String
         string cs = "DataBase=logindb;Server=ol_informix1410_9;User ID = informix; Password=Rinvoke1;";
+        string firstname;
+        string lastname;
+        string email;
+        string username;
+        string usertype;
+        string password;
+        string address;
 
         //public string userType = "Normal User";
         public string[] userType { get; set; }
@@ -30,7 +38,7 @@ namespace ISL
         public Registration()
         {
             InitializeComponent();
-            userType = new string[] { "Normal User" };
+            userType = new string[] { "Admin", "User" };
             DataContext = this;
         }
 
@@ -41,7 +49,7 @@ namespace ISL
             Close();
         }
 
-        private void Submit_Click(object sender, RoutedEventArgs e)
+        private void Submit_Click(object sender, RoutedEventArgs eventArg)
         {
             if (textBoxEmail.Text.Length == 0)
             {
@@ -56,12 +64,14 @@ namespace ISL
             }
             else
             {
-                string firstname = textBoxFirstName.Text;
-                string lastname = textBoxLastName.Text;
-                string email = textBoxEmail.Text;
-                string username = textBoxUserName.Text;
-                string usertype = comboBoxUserType.Text;
-                string password = passwordBox1.Password;
+                firstname = textBoxFirstName.Text;
+                lastname = textBoxLastName.Text;
+                email = textBoxEmail.Text;
+                username = textBoxUserName.Text;
+                usertype = comboBoxUserType.Text;
+                password = passwordBox1.Password;
+                address = textBoxAddress.Text;
+
                 if (username.Length == 0)
                 {
                     errormessage.Text = "Enter username.";
@@ -86,25 +96,75 @@ namespace ISL
                     }
                     else
                     {
-                        errormessage.Text = "";
-                        string address = textBoxAddress.Text;
-                        con = new IfxConnection(cs);
-                        con.Open();
-                        IfxCommand cmd = new IfxCommand("Insert into User (firstname,lastname,email,username,usertype,password,address) values('" + firstname + "','" + lastname + "','" + email + "','" + username + "','" + usertype + "','" + password + "','" + address + "')", con);
-                        cmd.CommandType = CommandType.Text;
-                        int rows = cmd.ExecuteNonQuery();
-                        con.Close();
-                        if(rows > 0)
+                        if (usertype.Equals("Admin"))
                         {
-                            errormessage.Text = "You have Registered successfully.";
+                            var dialog = new AdminPasswordDialogBox();
+                            if (dialog.ShowDialog() == true)
+                            {
+                                string AdminPass = dialog.ResponseText;
+                                if (AdminPass.Equals("admin"))
+                                {
+                                    InsertUser(sender, eventArg);
+                                }
+                                else
+                                {
+                                    errormessage.Text = "Registration failed, incorrect admin password.";
+                                }
+                            }
                         }
                         else
                         {
-                            errormessage.Text = "Registeration Failed";
+                            InsertUser(sender, eventArg);
                         }
                     }
                 }
-                
+            }
+        }
+
+        private void InsertUser(object sender, RoutedEventArgs e)
+        {
+            errormessage.Text = "";
+            int rows = 0;
+            string insertUserSQL = "Insert into User (firstname, lastname, email, username, usertype, password, address) " +
+                    "values('" + firstname + "','" + lastname + "','" + email + "','" + username + "','" + usertype + "','" + password + "','" + address + "')";
+
+            con = new IfxConnection(cs);
+            con.Open();
+            try
+            {
+                IfxCommand cmd = new IfxCommand(insertUserSQL, con);
+                cmd.CommandType = CommandType.Text;
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string createTableSQL = "create table User (userid serial, firstname varchar(20), lastname varchar(20), " +
+                    "email varchar(30), username varchar(20), usertype varchar(20), " +
+                    "password varchar(30), address varchar(150))";
+
+                IfxCommand cmd1 = new IfxCommand(createTableSQL, con);
+                cmd1.CommandType = CommandType.Text;
+                cmd1.ExecuteNonQuery();
+
+                IfxCommand cmd2 = new IfxCommand(insertUserSQL, con);
+                cmd2.CommandType = CommandType.Text;
+                rows = cmd2.ExecuteNonQuery();
+            }
+            finally
+            {
+                con.Close();
+
+            }
+            if (rows > 0)
+            {
+                if (usertype.Equals("Admin"))
+                    errormessage.Text = "Admin registered successfully.";
+                else
+                    errormessage.Text = "User registered successfully.";
+            }
+            else
+            {
+                errormessage.Text = "Registeration failed.";
             }
         }
     }

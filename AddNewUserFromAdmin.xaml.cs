@@ -28,7 +28,7 @@ namespace ISL
         public AddNewUserFromAdmin()
         {
             InitializeComponent();
-            userType = new string[] { "Admin User", "Normal User" };
+            userType = new string[] { "Admin", "User" };
             DataContext = this;
         }
 
@@ -80,7 +80,7 @@ namespace ISL
                         if (usertype.Length == 0)
                         {
                             errormessage.Text = "Select user type.";
-                            usertype.Focus();
+                            comboBoxUserType.Focus();
                         }
                             
                         errormessage.Text = "";
@@ -93,7 +93,10 @@ namespace ISL
                         con.Close();
                         if (rows > 0)
                         {
-                            errormessage.Text = "You have Registered successfully.";
+                            if (usertype.Equals("Admin"))
+                                errormessage.Text = "Admin registered successfully.";
+                            else
+                                errormessage.Text = "User registered successfully.";
                         }
                         else
                         {
