@@ -138,7 +138,7 @@ namespace ISL
             }
             catch (Exception ex)
             {
-                string createTableSQL = "create table User (userid serial, firstname varchar(20), lastname varchar(20), " +
+                string createTableSQL = "create table user (userid serial PRIMARY KEY, firstname varchar(20), lastname varchar(20), " +
                     "email varchar(30), username varchar(20), usertype varchar(20), " +
                     "password varchar(30), address varchar(150))";
 
